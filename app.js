@@ -25,7 +25,7 @@ const setTimer = (duration) => {
 };
 
 async function trackUserHandler() {
-  //let positionData;
+  let positionData;
   let posData;
   let timerData;
   try {
@@ -55,6 +55,17 @@ async function trackUserHandler() {
 
 button.addEventListener('click', trackUserHandler);
 
+//Promise.race([getPosition(), setTimer(1000)]).then(data => {
+//	console.log(data);
+//});
+
+//Promise.all([getPosition(), setTimer(1000)]).then(promiseData => { //kada jedan fejla onda cancela sve
+//	console.log(promiseData);
+//});
+
+Promise.allSettled([getPosition(), setTimer(1000)]).then(promiseData => { //kada jedan fejla moze i dalje da se koristi
+	console.log(promiseData);
+});
 
 /*
 let result = 0;
